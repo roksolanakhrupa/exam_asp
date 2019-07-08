@@ -93,7 +93,7 @@ namespace Exam_ASP.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(int id, Book book, IFormFile file)
+        public async Task<IActionResult> Edit(Book book, IFormFile file)
         {
             string path = "/files/" + file.FileName;
             using (var fileStream = new FileStream(appEnvironment.WebRootPath + path, FileMode.Create))
