@@ -1,0 +1,7 @@
+﻿
+@model List<Genre>
+    <h3> <a asp-action="Index" asp-controller="home" style="color:black;"><b>All</b></a></h3>
+    @foreach (Genre genre in Model)
+    {
+        <h4><a asp-route-name="@genre.Name" asp-action="Index" asp-controller="home" style="color:black">@genre.Name</a></h4>
+    }

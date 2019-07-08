@@ -1,0 +1,46 @@
+﻿@model Exam_ASP.Models.Book
+
+@{
+    ViewData["Title"] = "Info";
+}
+
+    <h2>Book Info</h2>
+
+
+    <div>
+        <img src="@Model.ImagePath" alt="Book image" style="width:100%">
+        <h1><b>Name: </b>@Model.Name</h1>
+        <h4><b>Genre:</b> @ViewBag.Genre</h4>
+        <h3><b>Author:</b> @ViewBag.Author</h3>
+        <h4 class="w3-opacity"><b>Year:</b> @Model.Year</h4>
+
+
+        <h2>
+            @Model.Description
+        </h2>
+
+        <p><b>Comments:</b>@ViewBag.CountOfComments</p>
+        <hr />
+    </div>
+
+  
+    <form method="post" class="container" asp-action="AddComment">
+        <h5>Add comment</h5>
+        <textarea runat="server" rows="4" cols="50" name="CommentTextMy" class="form-control"></textarea>
+        <input type="number" value="@Model.ID" name="id" style="display:none" />
+        <button type="submit" class="btn btn-success form-control">Add comment</button>
+        <hr />
+    </form>
+    <div class="container">
+        <h5>Previous comments:</h5>
+        @foreach (Comment el in ViewData["Comments"] as List<Comment>)
+        {
+            <div class="table-bordered " style="margin:10px 0; padding: 5px 10px;">
+                <h6 style="color: grey">@el.DateTime</h6>
+                <h4>@el.CommentText</h4>
+            </div>
+        }
+    </div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>

@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h2>Admin</h2>
+@if (User.Identity.IsAuthenticated)
+{
+    <a asp-area="" asp-controller="Account" asp-action="Logout" class="btn btn-success">Logout</a>
+    <hr />
+
+
+    <a asp-action="CreateBook" asp-controller="Admin" class="btn btn-success">Create new book</a>
+    <hr />
+
+    <table class="table table-bordered">
+        <tr>
+            <td><b>Name</b></td>
+            <td><b>Image</b></td>
+            <td><b>Year</b></td>
+            <td><b>Actions</b></td>
+        </tr>
+        @foreach (var book in Model)
+        {
+            <tr>
+                <td>@book.Name</td>
+                <td><img src="@book.ImagePath" alt="Book image" height="50" /></td>
+                <td>@book.Year</td>
+                <td>
+                    <a asp-action="Delete" class="btn btn-danger" asp-route-id="@book.ID">Delete</a>
+                    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@book.ID">Edit</a>
+                </td>
+            </tr>
+        }
+    </table>
+    <hr />
+    <h2>All authors:</h2>
+    @foreach (Author author in ViewBag.Authors)
+    {
+        <h4>@author.Name</h4>
+    }
+    <h3>Add Author</h3>
+
+    <form asp-action="AddAuthor" method="post">
+        <input type="text" name="name" class="form-control" value="" />
+        <button type="submit" class="btn btn-success">Add author</button>
+    </form>
+
+    <hr />
+    <h2>All genres:</h2>
+    @foreach (Genre genre in ViewBag.Genres)
+    {
+        <h4>@genre.Name</h4>
+    }
+    <h3>Add Genre</h3>
+    <form asp-action="AddGenre" method="post">
+        <input type="text" name="name" class="form-control" value="" />
+        <button type="submit" class="btn btn-success">Add genre</button>
+    </form>
+}
+else
+{
+    <a asp-area="" asp-controller="Account" asp-action="Login" class="btn btn-success" asp-route-ReturnUrl="/">Login</a>
+    <a asp-area="" asp-controller="Account" asp-action="Register" class="btn btn-success">Register</a>
+}
